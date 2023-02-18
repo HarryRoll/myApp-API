@@ -56,9 +56,21 @@ Route::get('score/{id}', [ScoreCtrl::class, 'index'])->name('score');
 Route::post('score', [ScoreCtrl::class, 'create'])->name('createScore');
 
 
-//get Question Subject
+//get Subject
 Route::get('subject', [QuestionCtrl::class, 'index'])->name('subject');
+
+//create subject
+Route::middleware('auth:sanctum')->post('subject', [QuestionCtrl::class, 'create'])->name('createSubject');
+
 
 //get Question Test
 Route::get('subject/{id}', [QuestionCtrl::class, 'show'])->name('getTest');
 
+//create question
+Route::post('quest', [QuestionCtrl::class, 'createQuest'])->name('createQuest');
+
+//create answer
+Route::post('answered', [QuestionCtrl::class, 'createAns'])->name('createAns');
+
+//delete answer
+Route::delete('answered/{id}', [QuestionCtrl::class, 'deleteQst'])->name('deleteQst');

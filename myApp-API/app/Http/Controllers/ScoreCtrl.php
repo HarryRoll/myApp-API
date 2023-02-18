@@ -19,12 +19,27 @@ class ScoreCtrl extends Controller
         // $result = Score::All();
         // return $result;
 
-        $result = User::join('score', 'users.id', '=', 'score.id_user')
-            ->join('subject', 'score.id_bs', '=', 'subject.id')
-            ->where('users.id', '=', $id)
-            ->get();
+            $result = User::join('score', 'users.id', '=', 'score.id_user')
+                ->join('subject', 'score.id_bs', '=', 'subject.id')
+                ->where('users.id', '=', $id)
+                ->get();
 
-        return $result;
+            return $result;
+
+
+        // $test = DB::table('Subject')
+        // ->join('score', 'Subject.id', '=', 'score.id_bs')
+        // ->where('Subject.id', '=', 'score.id_bs' )
+        // ->get('subject_name');
+
+        
+// 
+
+
+
+        // return $test;
+
+
     }
 
     /**
@@ -47,11 +62,6 @@ class ScoreCtrl extends Controller
 
                 $score = $correct * 10;
 		    }};
-
-        error_log($score);    
-		error_log($data->{3});
-		error_log($quest);
-        //Log::info("oke");
     
         $fill = [
             "id_bs" => $data->id,
