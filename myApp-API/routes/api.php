@@ -67,10 +67,10 @@ Route::middleware('auth:sanctum')->post('subject', [QuestionCtrl::class, 'create
 Route::get('subject/{id}', [QuestionCtrl::class, 'show'])->name('getTest');
 
 //create question
-Route::post('quest', [QuestionCtrl::class, 'createQuest'])->name('createQuest');
+Route::middleware('auth:sanctum')->post('quest', [QuestionCtrl::class, 'createQuest'])->name('createQuest');
 
 //create answer
-Route::post('answered', [QuestionCtrl::class, 'createAns'])->name('createAns');
+Route::middleware('auth:sanctum')->post('answered', [QuestionCtrl::class, 'createAns'])->name('createAns');
 
 //delete answer
-Route::delete('answered/{id}', [QuestionCtrl::class, 'deleteQst'])->name('deleteQst');
+Route::middleware('auth:sanctum')->delete('answered/{id}', [QuestionCtrl::class, 'deleteQst'])->name('deleteQst');

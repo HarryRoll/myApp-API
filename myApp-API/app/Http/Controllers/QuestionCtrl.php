@@ -73,6 +73,7 @@ class QuestionCtrl extends Controller
      */
     public function createAns(Request $request)
     {   
+    if(auth()->user()->roles === 'admin') {
         $request->validate([
             'answered' => 'required',
             'id_qst' => 'required',
@@ -88,6 +89,9 @@ class QuestionCtrl extends Controller
         $result = Answer::create($fill);
 
         return $result;
+    }else{
+        return 'Action Failed';
+    }
         
     }    
 
@@ -99,20 +103,24 @@ class QuestionCtrl extends Controller
      */
     public function createQuest(Request $request)
     {
+    if(auth()->user()->roles === 'admin') {
         $request->validate([
-            'question' => 'required',
-            'id_bs' => 'required',
-            'correct_answer' => 'required'
-        ]);
+                'question' => 'required',
+                'id_bs' => 'required',
+                'correct_answer' => 'required'
+            ]);
 
-    $fill = [
-		'id_bs'=> $request->id_bs,
-		'question' => $request->question,
-		'correct_answer' => $request->correct_answer
-	];
+        $fill = [
+            'id_bs'=> $request->id_bs,
+            'question' => $request->question,
+            'correct_answer' => $request->correct_answer
+        ];
 
-    $result = QuestionModel::create($fill);
-    return $result;  
+        $result = QuestionModel::create($fill);
+        return $result;  
+    } else {
+        return 'Action Failed';
+    }
 
     }
 
@@ -173,8 +181,12 @@ class QuestionCtrl extends Controller
     
     public function deleteQst($id)
     {
-        QuestionModel::destroy($id);
-        
-        return 'The question has been deleted';
+        if (auth()->user()->roles === 'admin'){
+            QuestionModel::destroy($id);
+            
+            return 'The question has been deleted';
+        } else {
+            return 'Action Failed';
+        }
     }
 }
